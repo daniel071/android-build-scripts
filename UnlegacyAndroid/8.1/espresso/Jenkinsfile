@@ -6,22 +6,37 @@ pipeline {
     stages {
         stage('Setup environment') {
             steps {
-                echo 'Test1'
+                sh 'cd /run/media/daniel/Files/jenkins/Android/UnlegacyAndroid'
+                sh 'source build/envsetup.sh'
+                sh 'export CCACHE_DIR=/run/media/daniel/Files/ccache'
+                sh 'export CCACHE_EXEC=/usr/bin/ccache'
+                sh 'export USE_CCACHE=1'
+                sh 'export LC_ALL=C'
+                sh 'mkdir ~/bin'
+                sh 'ln -s /usr/bin/python2 ~/bin/python'
+                sh 'ln -s /usr/bin/python2-config ~/bin/python-config'
+                sh 'export PATH=~/bin:$PATH'
             }
         }
         stage('Sync sources') {
             steps {
-                echo 'Test2'
+                sh 'repo sync -c --no-clone-bundle --no-tags -j12'
             }
         }
         stage('Build espressowifi') {
             steps {
-                echo 'Test1'
+                sh 'lunch ua_espresso-userdebug'
+                sh 'make otapackage -j12'
+                archiveArtifacts artifacts: 'out/target/product/espresso/ua_espresso-8.1.0-**.zip',
+                'out/target/product/espresso/ua_espresso-8.1.0-**.md5sum', fingerprint: true
             }
         }
         stage('Build espresso3g') {
             steps {
-                echo 'Test2'
+              sh 'lunch ua_espresso3g-userdebug'
+              sh 'make otapackage -j12'
+              archiveArtifacts artifacts: 'out/target/product/espresso3g/ua_espresso3g-8.1.0-**.zip',
+              'out/target/product/espresso3g/ua_espresso3g-8.1.0-**.md5sum', fingerprint: true
             }
         }
     }
