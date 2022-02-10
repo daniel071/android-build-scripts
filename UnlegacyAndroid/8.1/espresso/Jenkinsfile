@@ -1,13 +1,25 @@
 pipeline {
-    agent any
+    agent {
+            label 'linux'
+          }
 
     stages {
-        stage('Test1') {
+        stage('Setup environment') {
             steps {
                 echo 'Test1'
             }
         }
-        stage('Test2') {
+        stage('Sync sources') {
+            steps {
+                echo 'Test2'
+            }
+        }
+        stage('Build espressowifi') {
+            steps {
+                echo 'Test1'
+            }
+        }
+        stage('Build espresso3g') {
             steps {
                 echo 'Test2'
             }
