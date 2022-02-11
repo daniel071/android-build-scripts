@@ -1,14 +1,14 @@
 pipeline {
     agent {
             label 'linux'
-          }
+    }
 
     environment {
-      CCACHE_DIR=/mnt/Files/ccache
-      CCACHE_EXEC=/usr/bin/ccache
-      USE_CCACHE=1
-      LC_ALL=C
-      PATH=~/bin:$PATH
+        CCACHE_DIR=/mnt/Files/ccache
+        CCACHE_EXEC=/usr/bin/ccache
+        USE_CCACHE=1
+        LC_ALL=C
+        PATH=~/bin:$PATH
     }
 
     stages {
