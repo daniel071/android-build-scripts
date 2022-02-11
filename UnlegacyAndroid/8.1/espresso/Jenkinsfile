@@ -21,12 +21,12 @@ pipeline {
         }
         stage('Sync sources') {
             steps {
-                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source vars.sh; repo sync -c --no-clone-bundle --no-tags -j12'
+                sh 'source vars.sh; cd /mnt/Files/jenkins/Android/UnlegacyAndroid; repo sync -c --no-clone-bundle --no-tags -j12'
             }
         }
         stage('Build espressowifi') {
             steps {
-                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source vars.sh; source build/envsetup.sh; lunch ua_espresso-userdebug; make otapackage -j12'
+                sh 'source vars.sh; cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh; lunch ua_espresso-userdebug; make otapackage -j12'
                 // TODO: Make artifacts include date and md5sum
                 archiveArtifacts artifacts: 'out/target/product/espresso/ua_espresso-ota-eng.buildserver.zip', fingerprint: true
             }
