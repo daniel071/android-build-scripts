@@ -19,6 +19,7 @@ pipeline {
         }
         stage('Sync sources') {
             steps {
+                sh 'repo init'
                 sh 'repo sync -c --no-clone-bundle --no-tags -j12'
             }
         }
