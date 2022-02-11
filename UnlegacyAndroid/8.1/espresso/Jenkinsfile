@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Sync sources') {
             steps {
-                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; repo sync -c --no-clone-bundle --no-tags -j12'
+                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source vars.sh; repo sync -c --no-clone-bundle --no-tags -j12'
             }
         }
         stage('Build espressowifi') {
