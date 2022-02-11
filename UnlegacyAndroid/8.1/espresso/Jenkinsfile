@@ -15,11 +15,14 @@ pipeline {
                 sh 'test -h ~/bin/python && echo "Step skipped." || ln -s /usr/bin/python2 ~/bin/python'
                 sh 'test -h ~/bin/python-config && echo "Step skipped." || ln -s /usr/bin/python2-config ~/bin/python-config'
                 sh 'export PATH=~/bin:$PATH'
+                sh 'curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo'
+                sh 'chmod a+x ~/bin/repo'
+
             }
         }
         stage('Sync sources') {
             steps {
-                sh 'repo init'
+                sh 'repo init -u git://github.com/Unlegacy-Android/android.git -b aosp-8.1 --depth=1'
                 sh 'repo sync -c --no-clone-bundle --no-tags -j12'
             }
         }
