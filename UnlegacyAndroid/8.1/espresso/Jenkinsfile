@@ -3,18 +3,9 @@ pipeline {
             label 'linux'
     }
 
-    environment {
-        CCACHE_DIR='/mnt/Files/ccache'
-        CCACHE_EXEC='/usr/bin/ccache'
-        USE_CCACHE='1'
-        LC_ALL='C'
-        PATH='~/bin:$PATH'
-    }
-
     stages {
         stage('Setup environment') {
             steps {
-                // export maybe not needed here?
                 sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid'
                 sh 'export CCACHE_DIR=/mnt/Files/ccache'
                 sh 'export CCACHE_EXEC=/usr/bin/ccache'
@@ -35,14 +26,14 @@ pipeline {
         }
         stage('Build espressowifi') {
             steps {
-                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh; lunch ua_espresso-userdebug; make otapackage -j12'
+                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source vars.sh; source build/envsetup.sh; lunch ua_espresso-userdebug; make otapackage -j12'
                 // TODO: Make artifacts include date and md5sum
                 archiveArtifacts artifacts: 'out/target/product/espresso/ua_espresso-ota-eng.buildserver.zip', fingerprint: true
             }
         }
         stage('Build espresso3g') {
             steps {
-              sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh; lunch ua_espresso3g-userdebug; make otapackage -j12'
+              sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source vars.sh; source build/envsetup.sh; lunch ua_espresso3g-userdebug; make otapackage -j12'
               // TODO: Make artifacts include date and md5sum
               archiveArtifacts artifacts: 'out/target/product/espresso3g/ua_espresso3g-ota-eng.buildserver.zip', fingerprint: true
             }
