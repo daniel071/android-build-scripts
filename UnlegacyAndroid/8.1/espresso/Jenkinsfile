@@ -6,9 +6,9 @@ pipeline {
     stages {
         stage('Setup environment') {
             steps {
-                sh 'cd /run/media/daniel/Files/jenkins/Android/UnlegacyAndroid'
+                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid'
                 sh 'source build/envsetup.sh'
-                sh 'export CCACHE_DIR=/run/media/daniel/Files/ccache'
+                sh 'export CCACHE_DIR=/mnt/Files/ccache'
                 sh 'export CCACHE_EXEC=/usr/bin/ccache'
                 sh 'export USE_CCACHE=1'
                 sh 'export LC_ALL=C'
