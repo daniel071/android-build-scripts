@@ -7,7 +7,7 @@ pipeline {
         stage('Setup environment') {
             steps {
                 sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid'
-                sh 'source build/envsetup.sh'
+                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh'
                 sh 'export CCACHE_DIR=/mnt/Files/ccache'
                 sh 'export CCACHE_EXEC=/usr/bin/ccache'
                 sh 'export USE_CCACHE=1'
