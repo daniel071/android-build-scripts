@@ -15,18 +15,17 @@ pipeline {
         stage('Setup environment') {
             steps {
               // export maybe not needed here?
-                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh'
-                sh 'export CCACHE_DIR=/mnt/Files/ccache'
-                sh 'export CCACHE_EXEC=/usr/bin/ccache'
-                sh 'export USE_CCACHE=1'
-                sh 'export LC_ALL=C'
-                sh 'mkdir -p ~/bin'
-                sh 'test -h ~/bin/python && echo "Step skipped." || ln -s /usr/bin/python2 ~/bin/python'
-                sh 'test -h ~/bin/python-config && echo "Step skipped." || ln -s /usr/bin/python2-config ~/bin/python-config'
-                sh 'export PATH=~/bin:$PATH'
-                sh 'curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo'
-                sh 'chmod a+x ~/bin/repo'
-
+              sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh'
+              sh 'export CCACHE_DIR=/mnt/Files/ccache'
+              sh 'export CCACHE_EXEC=/usr/bin/ccache'
+              sh 'export USE_CCACHE=1'
+              sh 'export LC_ALL=C'
+              sh 'mkdir -p ~/bin'
+              sh 'test -h ~/bin/python && echo "Step skipped." || ln -s /usr/bin/python2 ~/bin/python'
+              sh 'test -h ~/bin/python-config && echo "Step skipped." || ln -s /usr/bin/python2-config ~/bin/python-config'
+              sh 'export PATH=~/bin:$PATH'
+              sh 'curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo'
+              sh 'chmod a+x ~/bin/repo'
             }
         }
         stage('Sync sources') {
