@@ -22,13 +22,12 @@ pipeline {
         }
         stage('Sync sources') {
             steps {
-                sh 'repo init -u git://github.com/Unlegacy-Android/android.git -b aosp-8.1 --depth=1'
-                sh 'repo sync -c --no-clone-bundle --no-tags -j12'
+                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; repo sync -c --no-clone-bundle --no-tags -j12'
             }
         }
         stage('Build espressowifi') {
             steps {
-                sh 'lunch ua_espresso-userdebug'
+                sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; lunch ua_espresso-userdebug'
                 sh 'make otapackage -j12'
                 // TODO: Make artifacts include date and md5sum
                 archiveArtifacts artifacts: 'out/target/product/espresso/ua_espresso-ota-eng.buildserver.zip', fingerprint: true
@@ -36,7 +35,7 @@ pipeline {
         }
         stage('Build espresso3g') {
             steps {
-              sh 'lunch ua_espresso3g-userdebug'
+              sh 'cd /mnt/Files/jenkins/Android/UnlegacyAndroid; lunch ua_espresso3g-userdebug'
               sh 'make otapackage -j12'
               // TODO: Make artifacts include date and md5sum
               archiveArtifacts artifacts: 'out/target/product/espresso3g/ua_espresso3g-ota-eng.buildserver.zip', fingerprint: true
