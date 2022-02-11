@@ -12,8 +12,8 @@ pipeline {
                 sh 'export USE_CCACHE=1'
                 sh 'export LC_ALL=C'
                 sh 'mkdir -p ~/bin'
-                sh 'ln -s /usr/bin/python2 ~/bin/python'
-                sh 'ln -s /usr/bin/python2-config ~/bin/python-config'
+                sh 'test -h ~/bin/python %% ln -s /usr/bin/python2 ~/bin/python || echo "Step skipped."'
+                sh 'test -h ~/bin/python-config %% ln -s /usr/bin/python2-config ~/bin/python-config || echo "Step skipped."'
                 sh 'export PATH=~/bin:$PATH'
             }
         }
