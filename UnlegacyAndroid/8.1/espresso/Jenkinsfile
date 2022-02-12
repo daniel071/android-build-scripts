@@ -29,6 +29,13 @@ pipeline {
                 sh 'source UnlegacyAndroid/8.1/espresso/espressowifi.sh'
                 // TODO: Make artifacts include date and md5sum
                 archiveArtifacts artifacts: 'out/target/product/espresso/ua_espresso-ota-eng.buildserver.zip', fingerprint: true
+
+                withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
+                  discordSend description: "espressowifi build successfull", footer: "UnlegacyAndroid 8.1",
+                  link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME,
+                  thumbnail: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Android_Oreo_logo.png",
+                  webhookURL: "${SECRET}"
+                }
             }
         }
         stage('Build espresso3g') {
@@ -36,6 +43,13 @@ pipeline {
               sh 'source UnlegacyAndroid/8.1/espresso/espresso3g.sh'
               // TODO: Make artifacts include date and md5sum
               archiveArtifacts artifacts: 'out/target/product/espresso3g/ua_espresso3g-ota-eng.buildserver.zip', fingerprint: true
+
+              withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
+                discordSend description: "espresso3g build successfull", footer: "UnlegacyAndroid 8.1",
+                link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME,
+                thumbnail: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Android_Oreo_logo.png",
+                webhookURL: "${SECRET}"
+              }
             }
         }
     }
