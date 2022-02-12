@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Build espressowifi') {
             steps {
-                sh 'source UnlegacyAndroid/8.1/espresso/espresso.sh'
+                sh 'source UnlegacyAndroid/8.1/espresso/espressowifi.sh'
                 // TODO: Make artifacts include date and md5sum
                 archiveArtifacts artifacts: 'out/target/product/espresso/ua_espresso-ota-eng.buildserver.zip', fingerprint: true
             }
