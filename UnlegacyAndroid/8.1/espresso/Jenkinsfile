@@ -28,8 +28,10 @@ pipeline {
             steps {
                 sh 'source UnlegacyAndroid/8.1/espresso/espressowifi.sh'
 
-                archiveArtifacts artifacts: '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso/*.zip', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
-                archiveArtifacts artifacts: '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso/*.md5sum', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
+                dir("/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso") {
+                  archiveArtifacts artifacts: '*.zip', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
+                  archiveArtifacts artifacts: '*.md5sum', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
+                }
 
                 withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
                   discordSend description: "espressowifi build successfull", footer: "UnlegacyAndroid 8.1",
@@ -43,7 +45,10 @@ pipeline {
             steps {
               sh 'source UnlegacyAndroid/8.1/espresso/espresso3g.sh'
 
-              archiveArtifacts artifacts: '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso3g/ua_espresso3g-**.zip, /mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso3g/ua_espresso3g-8.1.0-**.md5sum', fingerprint: true
+              dir("/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso3g") {
+                archiveArtifacts artifacts: '*.zip', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
+                archiveArtifacts artifacts: '*.md5sum', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
+              }
 
               withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
                 discordSend description: "espresso3g build successfull", footer: "UnlegacyAndroid 8.1",
