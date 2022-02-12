@@ -29,7 +29,7 @@ pipeline {
                 sh 'source UnlegacyAndroid/8.1/espresso/espressowifi.sh'
                 // TODO: Make artifacts include date and md5sum
                 archiveArtifacts artifacts: '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso/ua_espresso-**.zip',
-                '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso/ua_espresso-8.1.0-**.md5sum', fingerprint: true
+                artifacts: '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso/ua_espresso-8.1.0-**.md5sum', fingerprint: true
 
                 withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
                   discordSend description: "espressowifi build successfull", footer: "UnlegacyAndroid 8.1",
@@ -44,7 +44,7 @@ pipeline {
               sh 'source UnlegacyAndroid/8.1/espresso/espresso3g.sh'
               // TODO: Make artifacts include date and md5sum
               archiveArtifacts artifacts: '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso3g/ua_espresso3g-**.zip',
-              '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso3g/ua_espresso3g-8.1.0-**.md5sum', fingerprint: true
+              artifacts: '/mnt/Files/jenkins/Android/UnlegacyAndroid/out/target/product/espresso3g/ua_espresso3g-8.1.0-**.md5sum', fingerprint: true
 
               withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
                 discordSend description: "espresso3g build successfull", footer: "UnlegacyAndroid 8.1",
