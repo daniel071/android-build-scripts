@@ -26,14 +26,14 @@ pipeline {
         }
         stage('Build espressowifi') {
             steps {
-                sh 'source UnlegacyAndroid/8.1/espresso/vars.sh; cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh; lunch ua_espresso-userdebug; make otapackage -j12'
+                sh 'source UnlegacyAndroid/8.1/espresso/espresso.sh'
                 // TODO: Make artifacts include date and md5sum
                 archiveArtifacts artifacts: 'out/target/product/espresso/ua_espresso-ota-eng.buildserver.zip', fingerprint: true
             }
         }
         stage('Build espresso3g') {
             steps {
-              sh 'source UnlegacyAndroid/8.1/espresso/vars.sh; cd /mnt/Files/jenkins/Android/UnlegacyAndroid; source build/envsetup.sh; lunch ua_espresso3g-userdebug; make otapackage -j12'
+              sh 'source UnlegacyAndroid/8.1/espresso/espresso3g.sh'
               // TODO: Make artifacts include date and md5sum
               archiveArtifacts artifacts: 'out/target/product/espresso3g/ua_espresso3g-ota-eng.buildserver.zip', fingerprint: true
             }
