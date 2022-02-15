@@ -34,15 +34,11 @@ pipeline {
 
                   // requires https://plugins.jenkins.io/file-operations/
                   // no move operation, so gotta do this ¯\_(ツ)_/¯
-                  fileOperations([fileCopyOperation(
-                    excludes: '*-ota-*',
-                    flattenFiles: false,
-                    includes: '*.zip, *.md5sum',
-                    targetLocation: '/mnt/Files/jenkins/Android/builds'
-                  )],[fileDeleteOperation(
-                    excludes: '*-ota-*',
-                    includes: '*.zip, *.md5sum',
-                  )])
+                  fileOperations{
+                    fileCopyOperation(excludes: '*-ota-*', flattenFiles: false,
+                    includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds'),
+                    fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum',)
+                  }
                 }
 
                 withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
@@ -63,15 +59,11 @@ pipeline {
 
                 // requires https://plugins.jenkins.io/file-operations/
                 // no move operation, so gotta do this ¯\_(ツ)_/¯
-                fileOperations([fileCopyOperation(
-                  excludes: '*-ota-*',
-                  flattenFiles: false,
-                  includes: '*.zip, *.md5sum',
-                  targetLocation: '/mnt/Files/jenkins/Android/builds'
-                )],[fileDeleteOperation(
-                  excludes: '*-ota-*',
-                  includes: '*.zip, *.md5sum',
-                )])
+                fileOperations{
+                  fileCopyOperation(excludes: '*-ota-*', flattenFiles: false,
+                  includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds'),
+                  fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum',)
+                }
               }
 
               withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
