@@ -36,8 +36,8 @@ pipeline {
                   // no move operation, so gotta do this ¯\_(ツ)_/¯
                   fileOperations{
                     fileCopyOperation(excludes: '*-ota-*', flattenFiles: false,
-                    includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds'),
-                    fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum',)
+                    includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds')
+                    fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum')
                   }
                 }
 
@@ -61,8 +61,8 @@ pipeline {
                 // no move operation, so gotta do this ¯\_(ツ)_/¯
                 fileOperations{
                   fileCopyOperation(excludes: '*-ota-*', flattenFiles: false,
-                  includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds'),
-                  fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum',)
+                  includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds')
+                  fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum')
                 }
               }
 
