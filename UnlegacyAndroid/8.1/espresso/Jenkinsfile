@@ -34,7 +34,7 @@ pipeline {
                 }
 
                 withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
-                  discordSend description: "espressowifi build successfull", footer: "UnlegacyAndroid 8.1",
+                  discordSend description: "espressowifi build successful", footer: "UnlegacyAndroid 8.1",
                   link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME,
                   thumbnail: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Android_Oreo_logo.png",
                   webhookURL: "${SECRET}"
@@ -51,7 +51,7 @@ pipeline {
               }
 
               withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
-                discordSend description: "espresso3g build successfull", footer: "UnlegacyAndroid 8.1",
+                discordSend description: "espresso3g build successful", footer: "UnlegacyAndroid 8.1",
                 link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME,
                 thumbnail: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Android_Oreo_logo.png",
                 webhookURL: "${SECRET}"
