@@ -73,7 +73,6 @@ pipeline {
                   includes: '*.zip, *.md5sum',
                 )])
               }
-              }
 
               withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
                 discordSend description: "espresso3g build successful", footer: "UnlegacyAndroid 8.1",
