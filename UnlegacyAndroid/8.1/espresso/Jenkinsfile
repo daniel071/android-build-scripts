@@ -42,7 +42,7 @@ pipeline {
                   )],[fileDeleteOperation(
                     excludes: '*-ota-*',
                     includes: '*.zip, *.md5sum',
-                  )]).
+                  )])
                 }
 
                 withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
@@ -71,7 +71,7 @@ pipeline {
                 )],[fileDeleteOperation(
                   excludes: '*-ota-*',
                   includes: '*.zip, *.md5sum',
-                )]).
+                )])
               }
               }
 
