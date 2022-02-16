@@ -37,8 +37,8 @@ pipeline {
                   export LATEST_DATE=$(date -r $DEVICE_TARGET_FILES_DIR/latest.prop +%Y%m%d-%H%M)
                   export FILE_NAME=${OUTPUT_FILE_NAME}-${LATEST_DATE}
 
-                  mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
-                  mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.md5sum
+                  mv ${FILE_NAME}.zip /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
+                  mv ${FILE_NAME}.zip.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip.md5sum
                   '''
                 }
 
@@ -63,8 +63,8 @@ pipeline {
                 export LATEST_DATE=$(date -r $DEVICE_TARGET_FILES_DIR/latest.prop +%Y%m%d-%H%M)
                 export FILE_NAME=${OUTPUT_FILE_NAME}-${LATEST_DATE}
 
-                mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
-                mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.md5sum
+                mv ${FILE_NAME}.zip /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
+                mv ${FILE_NAME}.zip.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip.md5sum
                 '''
               }
 
