@@ -34,7 +34,7 @@ pipeline {
 
                   sh '''
                   export OUTPUT_FILE_NAME=ua_espresso-8.1.0
-                  export LATEST_DATE=$(date -r $DEVICE_TARGET_FILES_DIR/latest.prop +%Y%m%d-%H%M)
+                  export LATEST_DATE=$(date +"%Y%m%d")
                   export FILE_NAME=${OUTPUT_FILE_NAME}-${LATEST_DATE}
 
                   mv ${FILE_NAME}.zip /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
@@ -60,7 +60,7 @@ pipeline {
 
                 sh '''
                 export OUTPUT_FILE_NAME=ua_espresso3g-8.1.0
-                export LATEST_DATE=$(date -r $DEVICE_TARGET_FILES_DIR/latest.prop +%Y%m%d-%H%M)
+                export LATEST_DATE=$(date +"%Y%m%d")
                 export FILE_NAME=${OUTPUT_FILE_NAME}-${LATEST_DATE}
 
                 mv ${FILE_NAME}.zip /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
