@@ -32,13 +32,14 @@ pipeline {
                   archiveArtifacts artifacts: '*.zip', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
                   archiveArtifacts artifacts: '*.md5sum', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
 
-                  // requires https://plugins.jenkins.io/file-operations/
-                  // no move operation, so gotta do this ¯\_(ツ)_/¯
-                  fileOperations([
-                    fileCopyOperation(excludes: '*-ota-*', flattenFiles: false,
-                    includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds')][
-                    fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum')]
-                  )
+                  sh '''
+                  export OUTPUT_FILE_NAME=ua_espresso-8.1.0
+                  export LATEST_DATE=$(date -r $DEVICE_TARGET_FILES_DIR/latest.prop +%Y%m%d-%H%M)
+                  export FILE_NAME=${OUTPUT_FILE_NAME}-${LATEST_DATE}
+
+                  mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
+                  mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.md5sum
+                  '''
                 }
 
                 withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
@@ -57,13 +58,14 @@ pipeline {
                 archiveArtifacts artifacts: '*.zip', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
                 archiveArtifacts artifacts: '*.md5sum', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
 
-                // requires https://plugins.jenkins.io/file-operations/
-                // no move operation, so gotta do this ¯\_(ツ)_/¯
-                fileOperations([
-                  fileCopyOperation(excludes: '*-ota-*', flattenFiles: false,
-                  includes: '*.zip, *.md5sum', targetLocation: '/mnt/Files/jenkins/Android/builds')][
-                  fileDeleteOperation(excludes: '*-ota-*', includes: '*.zip, *.md5sum')]
-                )
+                sh '''
+                export OUTPUT_FILE_NAME=ua_espresso3g-8.1.0
+                export LATEST_DATE=$(date -r $DEVICE_TARGET_FILES_DIR/latest.prop +%Y%m%d-%H%M)
+                export FILE_NAME=${OUTPUT_FILE_NAME}-${LATEST_DATE}
+
+                mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
+                mv ${FILE_NAME}.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.md5sum
+                '''
               }
 
               withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
