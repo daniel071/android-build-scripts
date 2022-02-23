@@ -1,0 +1,54 @@
+pipeline {
+    agent {
+            label 'linux'
+    }
+
+    stages {
+        stage('Setup environment') {
+            steps {
+                sh 'cd /mnt/Files/jenkins/Android/LineageOS'
+                sh 'export CCACHE_DIR=/mnt/Files/ccache'
+                sh 'export CCACHE_EXEC=/usr/bin/ccache'
+                sh 'export USE_CCACHE=1'
+                sh 'export LC_ALL=C'
+                sh 'mkdir -p ~/bin'
+                sh 'test -h ~/bin/python && echo "Step skipped." || ln -s /usr/bin/python2 ~/bin/python'
+                sh 'test -h ~/bin/python-config && echo "Step skipped." || ln -s /usr/bin/python2-config ~/bin/python-config'
+                sh 'export PATH=~/bin:$PATH'
+                sh 'curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo'
+                sh 'chmod a+x ~/bin/repo'
+            }
+        }
+        stage('Sync sources') {
+            steps {
+                sh 'source LineageOS/18.1/on7xelte/vars.sh; cd /mnt/Files/jenkins/Android/LineageOS; repo sync -c --no-clone-bundle --no-tags -j12'
+            }
+        }
+        stage('Build on7xelte') {
+            steps {
+                sh 'source LineageOS/18.1/on7xelte/on7xelte.sh'
+
+                dir("/mnt/Files/jenkins/Android/LineageOS/out/target/product/on7xelte") {
+                  archiveArtifacts artifacts: '*.zip', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
+                  archiveArtifacts artifacts: '*.md5sum', excludes: '*-ota-*', fingerprint: true, onlyIfSuccessful: true
+
+                  sh '''
+                  export OUTPUT_FILE_NAME=lineage_on7xelte-18.1
+                  export LATEST_DATE=$(date +"%Y%m%d")
+                  export FILE_NAME=${OUTPUT_FILE_NAME}-${LATEST_DATE}
+
+                  mv ${FILE_NAME}.zip /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip
+                  mv ${FILE_NAME}.zip.md5sum /mnt/Files/jenkins/Android/builds/${FILE_NAME}.zip.md5sum
+                  '''
+                }
+
+                withCredentials([string(credentialsId: 'discord-webhook-android', variable: 'SECRET')]) { //set SECRET with the credential content
+                  discordSend description: "on7xelte build successful", footer: "LineageOS 18.1",
+                  link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME,
+                  thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Android_11_Developer_Preview_logo.svg/768px-Android_11_Developer_Preview_logo.svg.png",
+                  webhookURL: "${SECRET}"
+                }
+            }
+        }
+    }
+}
